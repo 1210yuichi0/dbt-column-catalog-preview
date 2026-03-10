@@ -1,0 +1,36 @@
+models:
+  - name: dummy_model
+    description: |
+      This is a dummy model description.
+
+      **Granularity**: 1 record = 1 dummy entity
+
+      **Data Sources**:
+      - Source A (`dummy__source_a`)
+      - Source B (`dummy__source_b`)
+
+      **Processing**:
+      - Filter records where id is not null
+      - Join with reference table
+
+    columns:
+      - name: id
+        description: Primary key
+        tests:
+          - not_null
+          - unique
+
+      - name: name
+        description: Name field
+
+      - name: category
+        description: Category field
+
+      - name: is_active
+        description: |
+          Active flag
+
+          If true, this record is active.
+
+      - name: notes
+        description: Additional notes (single line test)

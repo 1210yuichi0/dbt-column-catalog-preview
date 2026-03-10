@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: test_model
+    description: |
+      This is a test model with various description lengths.
+      It demonstrates the collapsible description feature.
+
+    columns:
+      - name: short_desc
+        description: Simple one-line description
+        data_type: string
+
+      - name: medium_desc
+        description: |
+          This is a medium-length description that spans multiple lines.
+          The second line should be hidden by default and expandable.
+        data_type: string
+
+      - name: long_desc
+        description: |
+          This is a very long description with **Markdown formatting**.
+
+          It includes:
+          - Multiple paragraphs
+          - **Bold text**
+          - *Italic text*
+          - `code snippets`
+
+          The user should be able to expand this to see all the content.
+        data_type: int64
+        tests:
+          - unique
+          - not_null
+
+      - name: markdown_desc
+        description: |
+          # Important Column
+
+          This column contains critical data. Please note:
+
+          1. First requirement
+          2. Second requirement
+          3. Third requirement
+
+          See [documentation](https://example.com) for more details.
+        data_type: string
+        meta:
+          pii: true

@@ -1,0 +1,84 @@
+{
+  "name": "dbt-column-catalog-preview",
+  "displayName": "dbt Column Catalog Preview",
+  "description": "Preview dbt YAML schema files as interactive column catalogs",
+  "version": "0.1.0",
+  "publisher": "yada",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1210yuichi0/dbt-column-catalog-preview.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:yaml",
+    "onCommand:dbt-catalog.preview"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dbt-catalog.preview",
+        "title": "dbt: Preview Column Catalog",
+        "icon": {
+          "light": "images/table-icon.svg",
+          "dark": "images/table-icon.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "dbt-catalog.preview",
+          "when": "resourceExtname =~ /\\.(yml|yaml)$/ && resourceFilename != 'dbt_project.yml' && resourceFilename != 'profiles.yml' && resourceFilename != 'packages.yml' && resourceFilename != 'selectors.yml'",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "dbt-catalog.preview",
+          "when": "resourceExtname =~ /\\.(yml|yaml)$/ && resourceFilename != 'dbt_project.yml' && resourceFilename != 'profiles.yml' && resourceFilename != 'packages.yml' && resourceFilename != 'selectors.yml'",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "dbt Column Catalog",
+      "properties": {
+        "dbtCatalog.autoPreview": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically open preview when schema.yml is opened"
+        },
+        "dbtCatalog.showPiiWarning": {
+          "type": "boolean",
+          "default": true,
+          "description": "Highlight columns marked as PII"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "@types/marked": "^5.0.2",
+    "js-yaml": "^4.1.0",
+    "marked": "^17.0.4"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.3.8",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,0 +1,417 @@
+:root {
+  --bg-primary: var(--vscode-editor-background);
+  --bg-secondary: var(--vscode-sideBar-background);
+  --text-primary: var(--vscode-editor-foreground);
+  --border-color: var(--vscode-panel-border);
+  --accent-color: var(--vscode-button-background);
+  --pii-color: #ff6b6b;
+  --test-badge-bg: #4ecdc4;
+}
+
+body {
+  font-family: var(--vscode-font-family);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  padding: 8px;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  padding: 4px 12px;
+  margin-bottom: 8px;
+  gap: 16px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.header .stats-container {
+  margin-bottom: 0;
+}
+
+.file-path {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.stats-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: transparent;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.stat-label {
+  font-size: 10px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-warning .stat-value {
+  color: var(--pii-color);
+}
+
+.controls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+#searchBox {
+  flex: 1;
+  padding: 5px 10px;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: var(--vscode-font-family);
+}
+
+#searchBox:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+  border-color: var(--vscode-focusBorder);
+}
+
+#searchBox::placeholder {
+  opacity: 0.6;
+}
+
+#exportBtn {
+  padding: 5px 12px;
+  background-color: var(--accent-color);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: var(--vscode-font-family);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+#exportBtn:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+
+#exportBtn:active {
+  transform: scale(0.98);
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.model-section {
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.model-section:last-child {
+  margin-bottom: 0;
+}
+
+.model-header {
+  background-color: var(--bg-secondary);
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.model-name {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vscode-symbolIcon-classForeground);
+}
+
+.model-description-wrapper {
+  position: relative;
+}
+
+.model-description {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.6em;
+}
+
+/* モデルDescription用のボタンスタイル */
+.model-description-wrapper .expand-toggle {
+  background: linear-gradient(to right, transparent 0%, var(--bg-secondary) 20%, var(--bg-secondary) 100%);
+}
+
+/* Markdownコンテンツのスタイル */
+.markdown-content {
+  line-height: 1.5;
+}
+
+/* 折りたたみ可能な説明 */
+.description-cell {
+  position: relative;
+  max-width: 400px;
+}
+
+.description-wrapper {
+  position: relative;
+}
+
+.description-content {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  line-height: 1.6em;
+  padding-right: 60px; /* moreボタンのスペースを確保 */
+}
+
+.description-content.expanded {
+  -webkit-line-clamp: unset;
+  max-height: 1000px;
+  padding-right: 60px;
+}
+
+/* Safari対応: Markdownコンテンツの子要素マージンをクリア */
+.description-content p,
+.description-content ul,
+.description-content ol,
+.description-content h1,
+.description-content h2,
+.description-content h3,
+.description-content h4 {
+  margin: 0;
+  padding: 0;
+}
+
+/* line-clamp時は改行を無視 */
+.description-content:not(.expanded) br {
+  display: none;
+}
+
+.expand-toggle {
+  /* ボタンのデフォルトスタイルをリセット */
+  border: none;
+  padding: 2px 4px;
+  margin: 0;
+
+  /* 1行目の右端に配置 */
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  /* 背景色 */
+  background: linear-gradient(to right, transparent 0%, var(--bg-primary) 20%, var(--bg-primary) 100%);
+
+  /* カスタムスタイル */
+  color: var(--vscode-textLink-foreground);
+  cursor: pointer;
+  font-size: 0.85em;
+  font-family: var(--vscode-font-family);
+  line-height: 1.6em;
+  white-space: nowrap;
+  font-weight: 500;
+  user-select: none;
+
+  /* デフォルトは非表示 */
+  opacity: 0;
+}
+
+/* 複数行の場合のみ常に表示 */
+.expand-toggle.has-multiline {
+  opacity: 1;
+}
+
+/* 展開時も右上に配置 */
+.description-content.expanded + .expand-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  opacity: 1 !important; /* 展開時は常に表示（奇数行でも） */
+}
+
+.expand-toggle:hover {
+  text-decoration: underline;
+}
+
+.expand-toggle:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
+}
+
+.markdown-content p {
+  margin: 0 0 8px 0;
+}
+
+.markdown-content p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content strong {
+  font-weight: 600;
+}
+
+.markdown-content em {
+  font-style: italic;
+}
+
+.markdown-content code {
+  background-color: var(--vscode-textCodeBlock-background);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.9em;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 4px 0;
+  padding-left: 20px;
+}
+
+.markdown-content li {
+  margin: 2px 0;
+}
+
+.markdown-content a {
+  color: var(--vscode-textLink-foreground);
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+.markdown-content blockquote {
+  border-left: 3px solid var(--border-color);
+  padding-left: 12px;
+  margin: 8px 0;
+  opacity: 0.8;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  margin: 8px 0 4px 0;
+  font-weight: 600;
+}
+
+.markdown-content h1 { font-size: 1.3em; }
+.markdown-content h2 { font-size: 1.2em; }
+.markdown-content h3 { font-size: 1.1em; }
+.markdown-content h4 { font-size: 1em; }
+
+.catalog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border: 1px solid var(--border-color);
+}
+
+.catalog-table .row-number {
+  width: 30px;
+  text-align: center;
+  font-weight: 400;
+  color: var(--vscode-descriptionForeground);
+  opacity: 0.6;
+  padding: 2px 4px;
+}
+
+.catalog-table thead {
+  background-color: var(--vscode-button-background);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.catalog-table th {
+  text-align: left;
+  padding: 8px 8px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--vscode-button-foreground);
+  border: 1px solid var(--border-color);
+  background-color: var(--vscode-button-background);
+}
+
+.catalog-table td {
+  padding: 2px 4px;
+  border: 1px solid var(--border-color);
+}
+
+.catalog-table tbody tr:nth-child(even) {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+
+.catalog-table tbody tr:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+.pii-row {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.pii-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: var(--pii-color);
+  color: white;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.test-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: var(--test-badge-bg);
+  color: white;
+  border-radius: 12px;
+  font-size: 11px;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.hidden {
+  display: none;
+}
